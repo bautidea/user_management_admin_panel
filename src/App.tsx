@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import './App.css';
 import { fetchUsers } from './services/fetchUsers';
 import { useUsers } from './hooks/useUsers';
+import UsersTable from './components/UsersTable';
 
 function App() {
   const { listOfUsers, updateListOfUsers } = useUsers();
@@ -14,13 +15,8 @@ function App() {
 
     fetchData();
   }, []);
-  console.log(listOfUsers);
 
-  return (
-    <>
-      <h1>HI</h1>
-    </>
-  );
+  return <UsersTable users={listOfUsers} />;
 }
 
 export default App;

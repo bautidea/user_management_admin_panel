@@ -2,6 +2,7 @@ export interface Result {
   name: Name;
   location: Location;
   picture: Picture;
+  id: Id;
 }
 
 interface Name {
@@ -26,7 +27,12 @@ interface Picture {
   thumbnail: string;
 }
 
+interface Id {
+  name: string;
+  value: string | null;
+}
 export interface ListOfUsers {
+  id: string | null;
   picture: string;
   firstName: string;
   lastName: string;

@@ -1,21 +1,20 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-
+import { fetchUsers } from './services/fetchUsers';
 
 function App() {
   const [listOfUsers, setListOfUsers] = useState([]);
 
   useEffect(() => {
-    const apiLink =
-      'https://randomuser.me/api/?results=10&inc=picture,name,location';
-    
-    fetch(apiLink)
-      .then((response) => response.json())
-      .then((data) => setListOfUsers(data.results))
-      .catch((err) => console.log(`Error when connecting to DB ${err}`));
+    async function fetchData() {
+      const data = await fetchUsers();
+      setListOfUsers(data);
+    }
+
+    fetchData();
   }, []);
-  
   console.log(listOfUsers);
+
   return (
     <>
       <h1>HI</h1>

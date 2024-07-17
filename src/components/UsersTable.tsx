@@ -3,9 +3,14 @@ import { ListOfUsers } from '../types';
 interface UsersTableProps {
   users: ListOfUsers[];
   colorRows: boolean;
+  handleDelete: (index: number) => void;
 }
 
-export default function UsersTable({ users, colorRows }: UsersTableProps) {
+export default function UsersTable({
+  users,
+  colorRows,
+  handleDelete,
+}: UsersTableProps) {
   return (
     <table style={{ width: '100%' }}>
       <thead>
@@ -32,7 +37,7 @@ export default function UsersTable({ users, colorRows }: UsersTableProps) {
               <td>{user.lastName}</td>
               <td>{user.country}</td>
               <td>
-                <button>Delete</button>
+                <button onClick={() => handleDelete(index)}>Delete</button>
               </td>
             </tr>
           );

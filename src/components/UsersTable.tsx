@@ -3,7 +3,7 @@ import { ListOfUsers } from '../types';
 interface UsersTableProps {
   users: ListOfUsers[];
   colorRows: boolean;
-  handleDelete: (index: number) => void;
+  handleDelete: (id: string) => void;
 }
 
 export default function UsersTable({
@@ -29,7 +29,7 @@ export default function UsersTable({
           const color = colorRows ? backgroundColor : 'transparent';
 
           return (
-            <tr key={index} style={{ background: color }}>
+            <tr key={user.id} style={{ background: color }}>
               <td>
                 <img src={user.picture} />
               </td>
@@ -37,7 +37,7 @@ export default function UsersTable({
               <td>{user.lastName}</td>
               <td>{user.country}</td>
               <td>
-                <button onClick={() => handleDelete(index)}>Delete</button>
+                <button onClick={() => handleDelete(user.id)}>Delete</button>
               </td>
             </tr>
           );

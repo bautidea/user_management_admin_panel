@@ -8,7 +8,7 @@ export interface Result {
   name: Name;
   location: Location;
   picture: Picture;
-  id: Id;
+  email: string;
 }
 
 interface Name {
@@ -33,12 +33,8 @@ interface Picture {
   thumbnail: string;
 }
 
-interface Id {
-  name: string;
-  value: string | null;
-}
 export interface ListOfUsers {
-  id: string | null;
+  id: string;
   picture: string;
   firstName: string;
   lastName: string;

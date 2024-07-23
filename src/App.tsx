@@ -23,9 +23,16 @@ function App() {
     setFilterCountry(event.target.value);
   }
 
+  const filteredUsers =
+    filterCountry !== '' && filterCountry.length > 0
+      ? listOfUsers.filter((user) =>
+          user.country.toLowerCase().includes(filterCountry.toLowerCase())
+        )
+      : listOfUsers;
+
   const sortedUsers = sortByCountry
-    ? listOfUsers.toSorted((a, b) => a.country.localeCompare(b.country))
-    : listOfUsers;
+    ? filteredUsers.toSorted((a, b) => a.country.localeCompare(b.country))
+    : filteredUsers;
   return (
     <>
       <h1>Users List</h1>

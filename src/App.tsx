@@ -7,6 +7,7 @@ function App() {
   const { listOfUsers, deleteUser, resetUsers } = useUsers();
   const [colorRows, setColorRows] = useState(false);
   const [sortByCountry, setSortByCountry] = useState(false);
+  const [filterCountry, setFilterCountry] = useState('');
 
   function toggleRowColors() {
     setColorRows(!colorRows);
@@ -16,10 +17,15 @@ function App() {
     setSortByCountry(!sortByCountry);
   }
 
+  function handleChangeCountryFilter(
+    event: React.ChangeEvent<HTMLInputElement>
+  ) {
+    setFilterCountry(event.target.value);
+  }
+
   const sortedUsers = sortByCountry
     ? listOfUsers.toSorted((a, b) => a.country.localeCompare(b.country))
     : listOfUsers;
-
   return (
     <>
       <h1>Users List</h1>
@@ -34,6 +40,12 @@ function App() {
         <button onClick={toggleRowColors}>Color rows</button>
         <button onClick={toggleSortByCountry}>Sort by country</button>
         <button onClick={resetUsers}>Reset list of users</button>
+        <input
+          placeholder="Filter by country"
+          type="text"
+          value={filterCountry}
+          onChange={handleChangeCountryFilter}
+        ></input>
       </header>
       <main>
         <UsersTable

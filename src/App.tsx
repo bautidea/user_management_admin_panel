@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import './App.css';
 import { useUsers } from './hooks/useUsers';
 import UsersTable from './components/UsersTable';
@@ -23,16 +23,24 @@ function App() {
     setFilterCountry(event.target.value);
   }
 
-  const filteredUsers =
-    filterCountry !== '' && filterCountry.length > 0
+  // Im going to use useMemo so each time i do an action that is not filter by country the users dont get sorted,
+  // in other words i dont want to sort the users when it is not needed.
+  const filteredUsers = useMemo(() => {
+    return filterCountry !== '' && filterCountry.length > 0
       ? listOfUsers.filter((user) =>
           user.country.toLowerCase().includes(filterCountry.toLowerCase())
         )
       : listOfUsers;
+  }, [listOfUsers, filterCountry]);
 
-  const sortedUsers = sortByCountry
-    ? filteredUsers.toSorted((a, b) => a.country.localeCompare(b.country))
-    : filteredUsers;
+  // Here im memoizing the value of 'sortedUsers' between renders, so if the dependencies in
+  // the array change, then the value of 'sortedUsers' gets re calculated.
+  const sortedUsers = useMemo(() => {
+    return sortByCountry
+      ? filteredUsers.toSorted((a, b) => a.country.localeCompare(b.country))
+      : filteredUsers;
+  }, [filteredUsers, sortByCountry]);
+
   return (
     <>
       <h1>Users List</h1>

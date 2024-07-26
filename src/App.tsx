@@ -43,8 +43,6 @@ function App() {
   // Here im memoizing the value of 'sortedUsers' between renders, so if the dependencies in
   // the array change, then the value of 'sortedUsers' gets re calculated.
   const sortedUsers = useMemo(() => {
-    if (sorting === SortBy.NONE) return filteredUsers;
-
     if (sorting === SortBy.FNAME)
       return filteredUsers.toSorted((a, b) =>
         a.firstName.localeCompare(b.firstName)
@@ -55,7 +53,12 @@ function App() {
         a.lastName.localeCompare(b.lastName)
       );
 
-    return filteredUsers.toSorted((a, b) => a.country.localeCompare(b.country));
+    if (sorting === SortBy.COUNTRY)
+      return filteredUsers.toSorted((a, b) =>
+        a.country.localeCompare(b.country)
+      );
+
+    return filteredUsers;
   }, [filteredUsers, sorting]);
 
   return (

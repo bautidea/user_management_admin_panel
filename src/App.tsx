@@ -2,11 +2,12 @@ import { useMemo, useState } from 'react';
 import './App.css';
 import { useUsers } from './hooks/useUsers';
 import UsersTable from './components/UsersTable';
+import { SortBy } from './types.d';
 
 function App() {
   const { listOfUsers, deleteUser, resetUsers } = useUsers();
   const [colorRows, setColorRows] = useState(false);
-  const [sortByCountry, setSortByCountry] = useState(false);
+  const [sorting, setSorting] = useState<SortBy>(SortBy.NONE);
   const [filterCountry, setFilterCountry] = useState('');
 
   function toggleRowColors() {
@@ -14,13 +15,19 @@ function App() {
   }
 
   function toggleSortByCountry() {
-    setSortByCountry(!sortByCountry);
+    const newSortingValue =
+      sorting === SortBy.NONE ? SortBy.COUNTRY : SortBy.NONE;
+    setSorting(newSortingValue);
   }
 
   function handleChangeCountryFilter(
     event: React.ChangeEvent<HTMLInputElement>
   ) {
     setFilterCountry(event.target.value);
+  }
+
+  function handleSortChange(sort: SortBy) {
+    setSorting(sort);
   }
 
   // Im going to use useMemo so each time i do an action that is not filter by country the users dont get sorted,
@@ -36,10 +43,20 @@ function App() {
   // Here im memoizing the value of 'sortedUsers' between renders, so if the dependencies in
   // the array change, then the value of 'sortedUsers' gets re calculated.
   const sortedUsers = useMemo(() => {
-    return sortByCountry
-      ? filteredUsers.toSorted((a, b) => a.country.localeCompare(b.country))
-      : filteredUsers;
-  }, [filteredUsers, sortByCountry]);
+    if (sorting === SortBy.NONE) return filteredUsers;
+
+    if (sorting === SortBy.FNAME)
+      return filteredUsers.toSorted((a, b) =>
+        a.firstName.localeCompare(b.firstName)
+      );
+
+    if (sorting === SortBy.LNAME)
+      return filteredUsers.toSorted((a, b) =>
+        a.lastName.localeCompare(b.lastName)
+      );
+
+    return filteredUsers.toSorted((a, b) => a.country.localeCompare(b.country));
+  }, [filteredUsers, sorting]);
 
   return (
     <>
@@ -53,7 +70,11 @@ function App() {
         }}
       >
         <button onClick={toggleRowColors}>Color rows</button>
-        <button onClick={toggleSortByCountry}>Sort by country</button>
+        <button onClick={toggleSortByCountry}>
+          {sorting === SortBy.COUNTRY
+            ? 'Stop sort by country'
+            : 'Sort by country'}
+        </button>
         <button onClick={resetUsers}>Reset list of users</button>
         <input
           placeholder="Filter by country"
@@ -67,6 +88,7 @@ function App() {
           users={sortedUsers}
           colorRows={colorRows}
           handleDelete={deleteUser}
+          changeSorting={handleSortChange}
         />
       </main>
     </>

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ListOfUsers } from '../types';
+import { type ListOfUsers } from '../types';
 import { fetchUsers } from '../services/fetchUsers';
 
 export function useUsers() {

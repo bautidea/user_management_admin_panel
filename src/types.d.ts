@@ -40,3 +40,10 @@ export interface ListOfUsers {
   lastName: string;
   country: string;
 }
+
+export enum SortBy {
+  NONE = 'none',
+  FNAME = 'firstName',
+  LNAME = 'lastName',
+  COUNTRY = 'country',
+}

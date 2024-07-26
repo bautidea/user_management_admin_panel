@@ -1,24 +1,41 @@
-import { ListOfUsers } from '../types';
+import { ListOfUsers, SortBy } from '../types.d';
 
 interface UsersTableProps {
   users: ListOfUsers[];
   colorRows: boolean;
   handleDelete: (id: string) => void;
+  changeSorting: (sort: SortBy) => void;
 }
 
 export default function UsersTable({
   users,
   colorRows,
   handleDelete,
+  changeSorting,
 }: UsersTableProps) {
   return (
     <table style={{ width: '100%' }}>
       <thead>
         <tr>
           <th>Picture</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Country</th>
+          <th
+            onClick={() => changeSorting(SortBy.FNAME)}
+            style={{ cursor: 'pointer' }}
+          >
+            First Name
+          </th>
+          <th
+            onClick={() => changeSorting(SortBy.LNAME)}
+            style={{ cursor: 'pointer' }}
+          >
+            Last Name
+          </th>
+          <th
+            onClick={() => changeSorting(SortBy.COUNTRY)}
+            style={{ cursor: 'pointer' }}
+          >
+            Country
+          </th>
           <th>Actions</th>
         </tr>
       </thead>

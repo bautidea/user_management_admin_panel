@@ -1,4 +1,4 @@
-# User management administrator panel.
+# User administrator panel.
 
 <div align='center' display='flex' width='100%'>
 <img src='./src/assets/git_img.png' width='75%' >

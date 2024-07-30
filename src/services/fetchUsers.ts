@@ -5,7 +5,7 @@ export async function fetchUsers() {
   // the email. Email is a unique field, so i can identify users with this
   // field.
   const apiLink =
-    'https://randomuser.me/api/?results=100&inc=email,picture,name,location';
+    'https://randomuser.me/api/?results=10&inc=email,picture,name,location';
 
   return fetch(apiLink)
     .then((response) => response.json())

@@ -4,6 +4,8 @@ import { fetchUsers } from '../services/fetchUsers';
 
 export function useUsers() {
   const [listOfUsers, setListOfUsers] = useState<ListOfUsers[]>([]);
+  const [isLoading, setIsloading] = useState<boolean>(false);
+
   // Here im using useRef in order to save the original list of users
   // Im using useRef because i want to save this value so it can be shared between each render.
   // So when the list of users change and i reset it i dont want to re render the component.

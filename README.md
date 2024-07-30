@@ -20,3 +20,5 @@ The steps followed for developing this:
 <li>Optimize code in order that any unnecessary doesnt get executed, for example avoid sorting when coloring rows.</li>
 <li>Sort columns alphabetically when clicking on headers.</li>
 </ol>
+
+After finishing this assessment, by completing the items listed above, i decided to implement more features into this project, with the objective of improving and adding features to make this app better for UX.

@@ -1,0 +1,25 @@
+.skeletonRow {
+  background: #3f3f3f;
+}
+
+.skeleton {
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: skeletonAnimation;
+  animation-timing-function: linear;
+  background-color: #3f3f3f;
+  background: linear-gradient(to right, #eeeeee 8%, #bbbbbb 18%, #eeeeee 33%);
+  background-size: 800px 45px;
+  height: 45px;
+  position: relative;
+}
+
+@keyframes skeletonAnimation {
+  0% {
+    background-position: -800px 0;
+  }
+  100% {
+    background-position: 800px 0;
+  }
+}

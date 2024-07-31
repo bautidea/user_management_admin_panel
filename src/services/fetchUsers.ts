@@ -20,5 +20,7 @@ export async function fetchUsers() {
         };
       });
     })
-    .catch((err) => console.error(`Error when connecting to DB ${err}`));
+    .catch((err) => {
+      throw new Error(`Error when connecting to DB ${err}`);
+    });
 }

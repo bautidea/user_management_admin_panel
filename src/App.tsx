@@ -5,7 +5,7 @@ import UsersTable from './components/UsersTable';
 import { SortBy } from './types.d';
 
 function App() {
-  const { listOfUsers, deleteUser, resetUsers } = useUsers();
+  const { listOfUsers, isLoading, deleteUser, resetUsers } = useUsers();
   const [colorRows, setColorRows] = useState(false);
   const [sorting, setSorting] = useState<SortBy>(SortBy.NONE);
   const [filterCountry, setFilterCountry] = useState('');
@@ -92,8 +92,12 @@ function App() {
           colorRows={colorRows}
           handleDelete={deleteUser}
           changeSorting={handleSortChange}
+          isLoading={isLoading}
         />
       </main>
+      <footer>
+        <button>Load More</button>
+      </footer>
     </>
   );
 }

@@ -1,25 +1,25 @@
 import './LoadingSkeleton.css';
 
 export function LoadingSkeleton() {
-  const skeletonsRows = Array.from({ length: 3 });
+  const skeletonsRows = Array.from({ length: 5 });
   return (
     <tbody>
       {skeletonsRows.map((_, index) => (
         <tr key={index} className="skeletonRow">
-          <td>
-            <div className="skeleton" />
+          <td className="skeletonTd">
+            <div className="skeleton img displayInlineBlock" />
           </td>
-          <td>
-            <div />
+          <td className="skeletonTd">
+            <div className="skeleton txt displayInlineBlock" />
           </td>
-          <td>
-            <div />
+          <td className="skeletonTd">
+            <div className="skeleton txt displayInlineBlock" />
           </td>
-          <td>
-            <div />
+          <td className="skeletonTd">
+            <div className="skeleton txt displayInlineBlock" />
           </td>
-          <td>
-            <div />
+          <td className="skeletonTd">
+            <div className="skeleton txt displayInlineBlock" />
           </td>
         </tr>
       ))}

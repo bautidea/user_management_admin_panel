@@ -96,7 +96,7 @@ function App() {
         />
       </main>
       <footer>
-        <button>Load More</button>
+        <button style={{ marginTop: '25px' }}>Load More</button>
       </footer>
     </>
   );

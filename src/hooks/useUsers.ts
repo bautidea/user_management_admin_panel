@@ -4,7 +4,7 @@ import { fetchUsers } from '../services/fetchUsers';
 
 export function useUsers() {
   const [listOfUsers, setListOfUsers] = useState<ListOfUsers[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   // Here im using useRef in order to save the original list of users
@@ -12,23 +12,23 @@ export function useUsers() {
   // So when the list of users change and i reset it i dont want to re render the component.
   const originalUsers = useRef<ListOfUsers[]>([]);
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-  //       setIsLoading(true);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setIsLoading(true);
 
-  //       const data = await fetchUsers();
-  //       setListOfUsers(data);
-  //       originalUsers.current = data;
-  //     } catch (error) {
-  //       console.log(error);
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   }
+        const data = await fetchUsers();
+        setListOfUsers(data);
+        originalUsers.current = data;
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
 
-  //   fetchData();
-  // }, []);
+    fetchData();
+  }, []);
 
   function updateListOfUsers(users: ListOfUsers[]) {
     return setListOfUsers(users);

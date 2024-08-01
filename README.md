@@ -23,7 +23,8 @@ The steps followed for developing this:
 
 After finishing this assessment, by completing the items listed above, i decided to implement more features into this project, with the objective of improving and adding features to make this app better for UX.
 
-- Added loading skeletons.
-<div align='center' display='flex' align='center' width='100%'>
-<img src='./src/assets/loading_skeleton.gif' width='60%' >
+- Added loading skeletons and error animations, when connection to DB cant be stablish.
+<div align='center' display='flex' flex-direction='row' width='100%'>
+<img src='./src/assets/loading_skeleton.gif' width='49%' >
+<img src='./src/assets/error_loading.gif' width='49%' >
 </div>

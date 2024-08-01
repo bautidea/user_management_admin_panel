@@ -1,14 +1,10 @@
-/* .skeletonRow {
-  background: #3f3f3f;
-} */
-
 .skeleton {
   animation-duration: 3s;
   animation-fill-mode: forwards;
   animation-iteration-count: infinite;
   animation-name: skeletonAnimation;
   animation-timing-function: linear;
-  background: linear-gradient(to right, #3f3f3f 8%, #bbbbbb 18%, #3f3f3f 33%);
+  background: linear-gradient(to right, #3f3f3f 8%, #7b7b7b 18%, #3f3f3f 33%);
   background-size: 200% 100%;
   position: relative;
 }

@@ -3,9 +3,11 @@ import './App.css';
 import { useUsers } from './hooks/useUsers';
 import UsersTable from './components/UsersTable';
 import { SortBy } from './types.d';
+import { NoDataFound } from './components/NoDataFound';
 
 function App() {
-  const { listOfUsers, isLoading, deleteUser, resetUsers } = useUsers();
+  const { listOfUsers, isLoading, errorOccurrence, deleteUser, resetUsers } =
+    useUsers();
   const [colorRows, setColorRows] = useState(false);
   const [sorting, setSorting] = useState<SortBy>(SortBy.NONE);
   const [filterCountry, setFilterCountry] = useState('');
@@ -61,6 +63,15 @@ function App() {
     return filteredUsers;
   }, [filteredUsers, sorting]);
 
+  if (!isLoading && errorOccurrence) {
+    return (
+      <>
+        <h1>Users List</h1>
+        <NoDataFound />
+      </>
+    );
+  }
+
   return (
     <>
       <h1>Users List</h1>
@@ -86,6 +97,7 @@ function App() {
           onChange={handleChangeCountryFilter}
         ></input>
       </header>
+
       <main>
         <UsersTable
           users={sortedUsers}

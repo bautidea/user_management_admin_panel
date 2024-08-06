@@ -16,6 +16,7 @@ export function useUsers() {
     async function fetchData() {
       try {
         setIsLoading(true);
+        setErrorOccurrence(false);
 
         const data = await fetchUsers();
         setListOfUsers(data);

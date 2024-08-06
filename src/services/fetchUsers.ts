@@ -8,7 +8,11 @@ export async function fetchUsers() {
     'https://randomuser.me/api/?results=10&inc=email,picture,name,location';
 
   return fetch(apiLink)
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) throw new Error('Error when connecting to DB');
+
+      return response.json();
+    })
     .then((data) => {
       return data.results.map(({ email, picture, name, location }: Result) => {
         return {
@@ -19,8 +23,5 @@ export async function fetchUsers() {
           country: location.country,
         };
       });
-    })
-    .catch((err) => {
-      throw new Error(`Error when connecting to DB ${err}`);
     });
 }

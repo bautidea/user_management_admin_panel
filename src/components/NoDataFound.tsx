@@ -3,7 +3,7 @@ import './NoDataFound.css';
 export function NoDataFound() {
   return (
     <div className="loopWrapper container">
-      <p>Error: data couldn't be sent</p>
+      <p>Error: no connection to data base.</p>
       <div className="mountain"></div>
       <div className="hill"></div>
       <div className="tree"></div>

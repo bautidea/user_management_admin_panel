@@ -4,10 +4,17 @@ import { useUsers } from './hooks/useUsers';
 import UsersTable from './components/UsersTable';
 import { SortBy } from './types.d';
 import { NoDataFound } from './components/NoDataFound';
+import { LoadingSkeleton } from './components/LoadingSkeleton';
 
 function App() {
-  const { listOfUsers, isLoading, errorOccurrence, deleteUser, resetUsers } =
-    useUsers();
+  const {
+    listOfUsers,
+    isLoading,
+    errorOccurrence,
+    deleteUser,
+    resetUsers,
+    loadMoreUsers,
+  } = useUsers();
   const [colorRows, setColorRows] = useState(false);
   const [sorting, setSorting] = useState<SortBy>(SortBy.NONE);
   const [filterCountry, setFilterCountry] = useState('');
@@ -99,17 +106,23 @@ function App() {
       </header>
 
       <main>
-        <UsersTable
-          users={sortedUsers}
-          colorRows={colorRows}
-          handleDelete={deleteUser}
-          changeSorting={handleSortChange}
-          isLoading={isLoading}
-        />
+        {sortedUsers.length > 0 && (
+          <UsersTable
+            users={sortedUsers}
+            colorRows={colorRows}
+            handleDelete={deleteUser}
+            changeSorting={handleSortChange}
+          />
+        )}
+
+        {isLoading && <LoadingSkeleton />}
+
+        {!isLoading && !errorOccurrence && (
+          <button style={{ marginTop: '25px' }} onClick={loadMoreUsers}>
+            Load More
+          </button>
+        )}
       </main>
-      <footer>
-        <button style={{ marginTop: '25px' }}>Load More</button>
-      </footer>
     </>
   );
 }

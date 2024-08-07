@@ -6,11 +6,13 @@ export function useUsers() {
   const [listOfUsers, setListOfUsers] = useState<ListOfUsers[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorOccurrence, setErrorOccurrence] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   // Here im using useRef in order to save the original list of users
   // Im using useRef because i want to save this value so it can be shared between each render.
   // So when the list of users change and i reset it i dont want to re render the component.
   const originalUsers = useRef<ListOfUsers[]>([]);
+  const isInitialMount = useRef<boolean>(true);
 
   useEffect(() => {
     async function fetchData() {
@@ -18,9 +20,16 @@ export function useUsers() {
         setIsLoading(true);
         setErrorOccurrence(false);
 
-        const data = await fetchUsers();
-        setListOfUsers(data);
-        originalUsers.current = data;
+        const data = await fetchUsers(currentPage);
+        console.log(data);
+
+        if (isInitialMount.current) {
+          setListOfUsers(data);
+          originalUsers.current = data;
+          isInitialMount.current = false;
+        } else {
+          setListOfUsers((prevUsers) => [...prevUsers, ...data]);
+        }
       } catch (error) {
         console.log(error);
         setErrorOccurrence(true);
@@ -30,7 +39,7 @@ export function useUsers() {
     }
 
     fetchData();
-  }, []);
+  }, [currentPage]);
 
   function updateListOfUsers(users: ListOfUsers[]) {
     return setListOfUsers(users);
@@ -43,6 +52,11 @@ export function useUsers() {
 
   async function resetUsers() {
     setListOfUsers(originalUsers.current);
+    setCurrentPage(1);
+  }
+
+  function loadMoreUsers() {
+    setCurrentPage((prevState) => prevState + 1);
   }
 
   return {
@@ -52,5 +66,6 @@ export function useUsers() {
     updateListOfUsers,
     deleteUser,
     resetUsers,
+    loadMoreUsers,
   };
 }

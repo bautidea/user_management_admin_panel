@@ -13,23 +13,19 @@ export function useUsers() {
   // So when the list of users change and i reset it i dont want to re render the component.
   const originalUsers = useRef<ListOfUsers[]>([]);
   const isInitialMount = useRef<boolean>(true);
+  const UsersReset = useRef<boolean>(false);
 
   useEffect(() => {
-    async function fetchData() {
+    async function InitialDataFetch() {
       try {
         setIsLoading(true);
         setErrorOccurrence(false);
 
         const data = await fetchUsers(currentPage);
-        console.log(data);
 
-        if (isInitialMount.current) {
-          setListOfUsers(data);
-          originalUsers.current = data;
-          isInitialMount.current = false;
-        } else {
-          setListOfUsers((prevUsers) => [...prevUsers, ...data]);
-        }
+        setListOfUsers(data);
+        originalUsers.current = data;
+        isInitialMount.current = false;
       } catch (error) {
         console.log(error);
         setErrorOccurrence(true);
@@ -38,7 +34,31 @@ export function useUsers() {
       }
     }
 
-    fetchData();
+    InitialDataFetch();
+  }, []);
+
+  useEffect(() => {
+    async function UpdateDataFetch() {
+      try {
+        setIsLoading(true);
+        setErrorOccurrence(false);
+
+        const data = await fetchUsers(currentPage);
+
+        setListOfUsers((prevUsers) => [...prevUsers, ...data]);
+      } catch (error) {
+        console.log(error);
+        setErrorOccurrence(true);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    if (!isInitialMount.current && !UsersReset.current) {
+      UpdateDataFetch();
+    } else {
+      UsersReset.current = false;
+    }
   }, [currentPage]);
 
   function updateListOfUsers(users: ListOfUsers[]) {
@@ -52,6 +72,7 @@ export function useUsers() {
 
   async function resetUsers() {
     setListOfUsers(originalUsers.current);
+    UsersReset.current = true;
     setCurrentPage(1);
   }
 

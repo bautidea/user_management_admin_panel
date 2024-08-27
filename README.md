@@ -33,3 +33,5 @@ After finishing this assessment, by completing the items listed above, i decided
 <div align='center' display='flex' flex-direction='row' width='100%'>
 <img src='./src/assets/infinite_scrolling.gif' width='70%' >
 </div>
+
+- For asynchronous state managing i used <a href='https://tanstack.com/query/latest'>TanStack Query</a>.

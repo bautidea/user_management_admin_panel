@@ -13,6 +13,8 @@ export function useUsers() {
   // So when the list of users change and i reset it i dont want to re render the component.
   const originalUsers = useRef<ListOfUsers[]>([]);
   const isInitialMount = useRef<boolean>(true);
+  // UserReset is used when the list of users gets restarted, if this is true it means, that the list
+  // of users has been restarted, and it prevents the wrong execution of the useEffect for appending new users.
   const UsersReset = useRef<boolean>(false);
 
   useEffect(() => {

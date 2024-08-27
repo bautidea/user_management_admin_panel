@@ -21,10 +21,15 @@ The steps followed for developing this:
 <li>Sort columns alphabetically when clicking on headers.</li>
 </ol>
 
-After finishing this assessment, by completing the items listed above, i decided to implement more features into this project, with the objective of improving and adding features to make this app better for UX.
+After finishing this assessment, by completing the items listed above, i decided to implement more features into this project, with the objective of improving app UX.
 
 - Added loading skeletons and error animations, when connection to DB cant be stablish.
 <div align='center' display='flex' flex-direction='row' width='100%'>
 <img src='./src/assets/loading_skeleton.gif' width='49%' >
 <img src='./src/assets/error_loading.gif' width='49%' >
+</div>
+
+- Added infinite scrolling.
+<div align='center' display='flex' flex-direction='row' width='100%'>
+<img src='./src/assets/infinite_scrolling.gif' width='70%' >
 </div>

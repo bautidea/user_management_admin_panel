@@ -32,13 +32,16 @@ interface Picture {
   medium: string;
   thumbnail: string;
 }
-
-export interface ListOfUsers {
+interface ResultUsers {
   id: string;
   picture: string;
   firstName: string;
   lastName: string;
   country: string;
+}
+export interface ListOfUsers {
+  resultUsers: ResultUsers[];
+  nextCursor: number;
 }
 
 export enum SortBy {

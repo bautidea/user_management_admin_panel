@@ -10,7 +10,7 @@ function App() {
   const {
     listOfUsers,
     isLoading,
-    errorOccurrence,
+    isError,
     deleteUser,
     resetUsers,
     loadMoreUsers,
@@ -70,7 +70,7 @@ function App() {
     return filteredUsers;
   }, [filteredUsers, sorting]);
 
-  if (!isLoading && errorOccurrence) {
+  if (!isLoading && isError) {
     return (
       <>
         <h1>Users List</h1>
@@ -117,7 +117,7 @@ function App() {
 
         {isLoading && <LoadingSkeleton />}
 
-        {!isLoading && !errorOccurrence && (
+        {!isLoading && !isError && (
           <button style={{ marginTop: '25px' }} onClick={loadMoreUsers}>
             Load More
           </button>

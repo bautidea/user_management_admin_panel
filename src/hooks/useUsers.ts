@@ -1,17 +1,18 @@
-import { type ListOfUsers } from '../types';
+import { type ResultUsers } from '../types';
 import { fetchUsers } from '../services/fetchUsers';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { QueryFunction, useInfiniteQuery } from '@tanstack/react-query';
 
 export function useUsers() {
-  const { isLoading, isError, data, fetchNextPage, hasNextPage, refetch } =
-    useInfiniteQuery<ListOfUsers>({
+  const { isLoading, isError, data, isFetching, refetch } =
+    useInfiniteQuery<ResultUsers>({
       queryKey: ['users'],
-      queryFn: fetchUsers as any,
+      queryFn: fetchUsers,
       initialPageParam: 1,
-      getNextPageParam: (lastPage) => lastPage.nextCursor,
+      getNextPageParam: (lastPage) => lastPage.nextCursor + 1,
     });
-
+  console.log(isFetching);
   console.log(data);
+
   function deleteUser(id: string) {
     return id;
     // const newListOfUsers = listOfUsers.filter((user) => user.id !== id);

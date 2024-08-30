@@ -32,15 +32,15 @@ interface Picture {
   medium: string;
   thumbnail: string;
 }
-interface ResultUsers {
+interface ListOfUsers {
   id: string;
   picture: string;
   firstName: string;
   lastName: string;
   country: string;
 }
-export interface ListOfUsers {
-  resultUsers: ResultUsers[];
+export interface ResultUsers {
+  resultUsers: ListOfUsers[];
   nextCursor: number;
 }
 

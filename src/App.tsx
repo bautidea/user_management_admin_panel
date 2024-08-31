@@ -118,7 +118,7 @@ function App() {
         {isLoading && <LoadingSkeleton />}
 
         {!isLoading && !isError && (
-          <button style={{ marginTop: '25px' }} onClick={loadMoreUsers}>
+          <button style={{ marginTop: '25px' }} onClick={() => loadMoreUsers()}>
             Load More
           </button>
         )}

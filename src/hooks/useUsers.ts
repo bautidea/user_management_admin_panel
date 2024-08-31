@@ -1,17 +1,29 @@
-import { type ResultUsers } from '../types';
+import { ListOfUsers, type ResultUsers } from '../types';
 import { fetchUsers } from '../services/fetchUsers';
-import { QueryFunction, useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 export function useUsers() {
-  const { isLoading, isError, data, isFetching, refetch } =
+  const { isLoading, isError, data, fetchNextPage, refetch } =
     useInfiniteQuery<ResultUsers>({
       queryKey: ['users'],
-      queryFn: fetchUsers,
+      queryFn: fetchUsers as any,
       initialPageParam: 1,
-      getNextPageParam: (lastPage) => lastPage.nextCursor + 1,
+      getNextPageParam: (lastPage) => lastPage.nextCursor,
     });
-  console.log(isFetching);
-  console.log(data);
+
+  // Im using flatMap method because TanStack returns each new page as an independent array
+  //* {
+  //*   pages: [
+  //*     {resultUsers: Array(10), nextCursor: 2}
+  //*     {resultUsers: Array(10), nextCursor: 3}
+  //*     {resultUsers: Array(10), nextCursor: 4}
+  //*   ]
+  //* }
+  // With 'flatMap' we got a single array with all resultUsers.
+  const listOfUsers: ListOfUsers[] =
+    data?.pages?.flatMap((result) => result.resultUsers) ?? [];
+
+  console.log(listOfUsers);
 
   function deleteUser(id: string) {
     return id;
@@ -24,7 +36,7 @@ export function useUsers() {
   }
 
   function loadMoreUsers() {
-    // setCurrentPage((prevState) => prevState + 1);
+    fetchNextPage();
   }
 
   return {

@@ -25,7 +25,7 @@ export async function fetchUsers({ pageParam }: { pageParam?: number }) {
     }
   );
 
-  const resultPage = Number(data.info.page);
+  const nextCursor = Number(data.info.page) + 1;
 
-  return { resultUsers, resultPage };
+  return { resultUsers, nextCursor };
 }

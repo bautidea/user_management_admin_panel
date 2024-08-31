@@ -10,7 +10,9 @@ function App() {
   const {
     listOfUsers,
     isLoading,
+    isFetching,
     isError,
+    hasNextPage,
     deleteUser,
     resetUsers,
     loadMoreUsers,
@@ -115,10 +117,10 @@ function App() {
           />
         )}
 
-        {isLoading && <LoadingSkeleton />}
+        {(isLoading || isFetching) && <LoadingSkeleton />}
 
-        {!isLoading && !isError && (
-          <button style={{ marginTop: '25px' }} onClick={() => loadMoreUsers()}>
+        {hasNextPage && !isLoading && !isFetching && !isError && (
+          <button style={{ marginTop: '25px' }} onClick={loadMoreUsers}>
             Load More
           </button>
         )}

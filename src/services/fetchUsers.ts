@@ -25,7 +25,10 @@ export async function fetchUsers({ pageParam }: { pageParam?: number }) {
     }
   );
 
-  const nextCursor = Number(data.info.page) + 1;
+  const currentPage = Number(data.info.page);
+
+  // Limiting the amount of pages to show.
+  const nextCursor = currentPage > 5 ? undefined : currentPage + 1;
 
   return { resultUsers, nextCursor };
 }

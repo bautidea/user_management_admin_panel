@@ -41,7 +41,7 @@ interface ListOfUsers {
 }
 export interface ResultUsers {
   resultUsers: ListOfUsers[];
-  nextCursor: number;
+  nextCursor?: number;
 }
 
 export enum SortBy {

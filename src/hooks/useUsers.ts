@@ -1,6 +1,6 @@
 import { ListOfUsers, type ResultUsers } from '../types';
 import { fetchUsers } from '../services/fetchUsers';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
 import { queryClient } from '../main';
 
 export function useUsers() {
@@ -24,8 +24,31 @@ export function useUsers() {
   const listOfUsers: ListOfUsers[] =
     data?.pages?.flatMap((result) => result.resultUsers) ?? [];
 
+  // Define the mutation for deleting a user
+  const mutation = useMutation({
+    mutationFn: (id: string) => {
+      // Here i perform the filtering of the user.
+      return listOfUsers.filter((user) => user.id !== id);
+    },
+    // And onSuccess (its always success because we are not making any asynchronous tasks), such as API calls.
+    onSuccess: (filteredUsers: ListOfUsers[]) => {
+      // Update the query data after a successful mutation
+      queryClient.setQueryData(['users'], (oldData: any) => {
+        return {
+          ...oldData,
+          pages: oldData.pages.map((page: any) => ({
+            ...page,
+            resultUsers: page.resultUsers.filter((user: ListOfUsers) =>
+              filteredUsers.includes(user)
+            ),
+          })),
+        };
+      });
+    },
+  });
+
   function deleteUser(id: string) {
-    listOfUsers.filter((user) => user.id !== id);
+    return mutation.mutate(id);
   }
 
   async function resetUsers() {

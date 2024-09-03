@@ -24,26 +24,28 @@ export function useUsers() {
   const listOfUsers: ListOfUsers[] =
     data?.pages?.flatMap((result) => result.resultUsers) ?? [];
 
-  // Define the mutation for deleting a user
+  // Define the mutation for deleting a user.
   const mutation = useMutation({
-    mutationFn: (id: string) => {
-      // Here i perform the filtering of the user.
-      return listOfUsers.filter((user) => user.id !== id);
+    mutationFn: async (id: string) => {
+      // passing id to 'onSuccess'.
+      return id;
     },
     // And onSuccess (its always success because we are not making any asynchronous tasks), such as API calls.
-    onSuccess: (filteredUsers: ListOfUsers[]) => {
-      // Update the query data after a successful mutation
-      queryClient.setQueryData(['users'], (oldData: any) => {
-        return {
-          ...oldData,
-          pages: oldData.pages.map((page: any) => ({
-            ...page,
-            resultUsers: page.resultUsers.filter((user: ListOfUsers) =>
-              filteredUsers.includes(user)
-            ),
-          })),
-        };
-      });
+    // I'm taking the filtered listOfUsers.
+    onSuccess: (id: string) => {
+      // Updating from mutation response.
+      queryClient.setQueryData(
+        ['users'],
+        (oldData: { pages: ResultUsers[]; pageParams: number[] }) => {
+          return {
+            ...oldData,
+            pages: oldData.pages.map((page: ResultUsers) => ({
+              ...page,
+              resultUsers: page.resultUsers.filter((user) => user.id !== id),
+            })),
+          };
+        }
+      );
     },
   });
 

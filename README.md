@@ -3,8 +3,7 @@
 <div align='center' display='flex' width='100%'>
 <img src='./src/assets/git_img.png' width='75%' >
 </div>
-
-This projects consist in an administrator panel where users user information is displayed. It's a technical assignment for a Semi-senior position.
+Technical assignment for a Semi-senior position. It consists of an administrator panel where user information is displayed.
 
 To develop this app i've used the API provided by <a href='https://randomuser.me/'>Random User Generator</a>.
 

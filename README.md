@@ -29,9 +29,7 @@ After finishing this assessment, by completing the items listed above, i decided
 <img src='./src/assets/error_loading.gif' width='49%' >
 </div>
 
-- Added infinite scrolling.
+- Used <a href='https://tanstack.com/query/latest'>TanStack Query</a> for asynchronous state managing and implemented infinite scrolling.
 <div align='center' display='flex' flex-direction='row' width='100%'>
 <img src='./src/assets/infinite_scrolling.gif' width='70%' >
 </div>
-
-- For asynchronous state managing i used <a href='https://tanstack.com/query/latest'>TanStack Query</a>.

@@ -31,7 +31,7 @@ export function useUsers() {
       return id;
     },
     // And onSuccess (its always success because we are not making any asynchronous tasks), such as API calls.
-    // I'm taking the filtered listOfUsers.
+    // I'm taking the id to filter.
     onSuccess: (id: string) => {
       // Updating from mutation response.
       queryClient.setQueryData(
